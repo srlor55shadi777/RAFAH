@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة خال رفاه</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            background-color: #f0e1ff;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        .question-button {
+            position: fixed;
+            top: 20px;
+            background-color: #a259ff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            z-index: 10;
+        }
+
+        .question-button i {
+            font-size: 18px;
+        }
+
+        .question-button:hover {
+            background-color: #8338ec;
+            transform: scale(1.1);
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .box {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            display: none; /* مخفي في البداية */
+            transition: box-shadow 0.3s;
+        }
+
+        .box:hover {
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        #name {
+            font-size: 24px;
+            font-weight: bold;
+            transition: color 0.5s;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .button {
+            padding: 10px;
+            background-color: #a259ff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .button i {
+            font-size: 18px;
+        }
+
+        .button:hover {
+            background-color: #8338ec;
+            transform: scale(1.1);
+        }
+
+        .button.color-button {
+            background-color: #6a4c93;
+        }
+
+        .button.color-button:hover {
+            background-color: #8c4cff;
+        }
+
+        .dark-mode {
+            background-color: #333;
+            color: #f0e1ff;
+        }
+
+        .dark-mode .box {
+            background-color: #444;
+        }
+
+        .dark-mode .button {
+            background-color: #ff6392;
+        }
+
+        .dark-mode .button:hover {
+            background-color: #ff3f72;
+        }
+
+        .dark-mode .button.color-button {
+            background-color: #b333ff;
+        }
+
+        .dark-mode .button.color-button:hover {
+            background-color: #d64cff;
+        }
+
+        .surprise {
+            display: none;
+            margin-top: 20px;
+            font-size: 20px;
+            color: red;
+        }
+
+        .surprise.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- زر الاستفهام لإظهار المربع -->
+    <button class="question-button" onclick="toggleBox()">
+        <i class="fas fa-question"></i>
+    </button>
+
+    <div class="container">
+        <!-- المربع المخفي -->
+        <div class="box" id="name-box">
+            <div id="name">خال رفاه</div>
+            <div class="buttons">
+                <button class="button color-button" onclick="changeColor()">
+                    <i class="fas fa-palette"></i>
+                </button>
+                <button class="button" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div class="surprise" id="surprise">
+                مفاجأة! أهلاً بك في موقع خال رفاه!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleBox() {
+            const box = document.getElementById('name-box');
+            if (box.style.display === 'none' || box.style.display === '') {
+                box.style.display = 'block';
+            } else {
+                box.style.display = 'none';
+            }
+        }
+
+        function changeColor() {
+            const nameElement = document.getElementById('name');
+            const colors = ['purple', 'blue', 'red', 'green', 'orange'];
+            const currentColor = nameElement.style.color;
+            let newColor = colors[Math.floor(Math.random() * colors.length)];
+            while (newColor === currentColor) {
+                newColor = colors[Math.floor(Math.random() * colors.length)];
+            }
+            nameElement.style.color = newColor;
+            
+            // إظهار المفاجأة
+            const surpriseElement = document.getElementById('surprise');
+            surpriseElement.classList.add('active');
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('.button:last-child i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+    </script>
+
+</body>
+  </html>
